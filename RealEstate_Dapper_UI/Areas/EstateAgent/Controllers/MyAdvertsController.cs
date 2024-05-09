@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using RealEstate_Dapper_UI.Dtos.CategoryDtos;
 using RealEstate_Dapper_UI.Dtos.ProductDtos;
 using RealEstate_Dapper_UI.Services;
+using System.Text;
 
 namespace RealEstate_Dapper_UI.Areas.EstateAgent.Controllers
 {
@@ -68,9 +69,24 @@ namespace RealEstate_Dapper_UI.Areas.EstateAgent.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> CreateAdvert(string x)
+        public async Task<IActionResult> CreateAdvert(CreateProductDto createProductDto)
         {
-            return View();
-        }
+            createProductDto.DealOfTheDay = false;
+            createProductDto.AdvertisementDate = DateTime.Now;
+            createProductDto.ProductStatus = true;
+
+            var id = _loginService.GetUserID;
+            createProductDto.EmployeeID = int.Parse(id);
+
+			var client = _httpClientFactory.CreateClient(); //bir tane istemci örneği oluşturduk
+			var jsonData = JsonConvert.SerializeObject(createProductDto); //gelen veriyi json'a çevirdik
+			StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json"); //json veriyi stringContent'e çevirdik
+			var responseMessage = await client.PostAsync("https://localhost:7101/api/Products", stringContent); //post işlemi yaptık
+			if (responseMessage.IsSuccessStatusCode)
+			{
+				return RedirectToAction("Index");
+			}
+			return View();
+		}
     }
 }

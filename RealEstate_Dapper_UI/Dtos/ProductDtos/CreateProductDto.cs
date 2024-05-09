@@ -2,13 +2,18 @@
 {
     public class CreateProductDto
     {
-        public string tittle { get; set; }
-        public decimal price { get; set; }
-        public string city { get; set; }
-        public string district { get; set; }
-        public string categoryid { get; set; }
-        public string coverimage { get; set; }
-        public string type { get; set; }
-        public string address { get; set; }
-    }
+		public string Tittle { get; set; }
+		public int Price { get; set; }
+		public string City { get; set; }
+		public string District { get; set; }
+		public string CoverImage { get; set; }
+		public string Address { get; set; }
+		public string Description { get; set; }
+		public string Type { get; set; }
+		public bool DealOfTheDay { get; set; }
+		public DateTime AdvertisementDate { get; set; }
+		public bool ProductStatus { get; set; }
+		public int EmployeeID { get; set; }
+		public int ProductKategory { get; set; }
+	}
 }
