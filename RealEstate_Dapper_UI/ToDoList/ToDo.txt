@@ -1,0 +1,2 @@
+﻿--Adminde ürün ekleme ve güncelleme işlemleri yapılabilir.
+--Adminde sidebar kısmında link verilme işlemleri eksik, yapılabilir.

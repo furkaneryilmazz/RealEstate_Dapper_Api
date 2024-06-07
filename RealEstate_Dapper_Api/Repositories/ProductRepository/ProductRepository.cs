@@ -26,7 +26,7 @@ namespace RealEstate_Dapper_Api.Repositories.ProductRepository
 
         public async Task<List<ResultProductWithCategoryDto>> GetAllProductWithCategoryAsync()
         {
-            string query = "SELECT ProductID,Tittle,Price,City,District,CategoryName,CoverImage,Type,Address,DealOfTheDay  FROM Product inner join Category on Product.ProductKategory=Category.CategoryID";
+            string query = "SELECT ProductID,Tittle,Price,City,District,CategoryName,CoverImage,SlugUrl,Type,Address,DealOfTheDay  FROM Product inner join Category on Product.ProductKategory=Category.CategoryID";
             using (var connection = _context.CreateConnection())
             {
                 var values = await connection.QueryAsync<ResultProductWithCategoryDto>(query);
@@ -115,7 +115,7 @@ namespace RealEstate_Dapper_Api.Repositories.ProductRepository
 
         public async Task<GetProductByProductIdDto> GetProductByProductId(int id)
         {
-            string query = "SELECT ProductID,Tittle,Price,City,District,CategoryName,CoverImage,Type,Address,DealOfTheDay,AdvertisementDate  FROM Product inner join Category on Product.ProductKategory=Category.CategoryID where ProductID=@productID";
+            string query = "SELECT ProductID,Tittle,Description,Price,City,District,CategoryName,CoverImage,Type,Address,DealOfTheDay,AdvertisementDate,SlugUrl FROM Product inner join Category on Product.ProductKategory=Category.CategoryID where ProductID=@productID";
             var parameters = new DynamicParameters();
             parameters.Add("@productID", id);
             using (var connection = _context.CreateConnection())
@@ -134,6 +134,40 @@ namespace RealEstate_Dapper_Api.Repositories.ProductRepository
             {
                 var values = await connection.QueryAsync<GetProductDetailByIdDto>(query, parameters);
                 return values.FirstOrDefault();
+            }
+        }
+
+		public async Task<List<ResultProductWithSearchListDto>> ResultProductWithSearchList(string searchKeyValue, int propertyCategoryId, string city)
+		{
+			string query = "Select * From Product Where Tittle Like '%"+ searchKeyValue + "%' And ProductKategory=@propertyCategoryId And City=@city";
+			var parameters = new DynamicParameters();
+			parameters.Add("@searchKeyValue", searchKeyValue);
+			parameters.Add("@propertyCategoryId", propertyCategoryId);
+			parameters.Add("@city", city);
+			using (var connection = _context.CreateConnection())
+			{
+				var values = await connection.QueryAsync<ResultProductWithSearchListDto>(query, parameters);
+				return values.ToList();
+			}
+		}
+
+		public async Task<List<ResultProductWithCategoryDto>> GetProductByDealOftheDayTrueWithCategoryAsync()
+		{
+			string query = "SELECT ProductID,Tittle,Price,City,District,CategoryName,CoverImage,Type,Address,DealOfTheDay  FROM Product inner join Category on Product.ProductKategory=Category.CategoryID where DealOfTheDay=1";
+			using (var connection = _context.CreateConnection())
+			{
+				var values = await connection.QueryAsync<ResultProductWithCategoryDto>(query);
+				return values.ToList();
+			}
+		}
+
+        public async Task<List<ResultLast3ProductWithCategoryDto>> GetLast3ProductAsync()
+        {
+            string query = "Select Top(3) ProductID, Tittle,Price,City,District,CoverImage,ProductKategory,CategoryName,Description,AdvertisementDate From Product Inner Join Category on Product.ProductKategory=Category.CategoryID Order By ProductID Desc ";
+            using (var connection = _context.CreateConnection())
+            {
+                var values = await connection.QueryAsync<ResultLast3ProductWithCategoryDto>(query);//burda ne yaptık? connection nesnesi üzerinden QueryAsync metodunu çağırdık ve ResultProductDto türünde bir liste döndürdük. //QueryAsync ne işe yarıyor? veritabanından veri çekmek için kullanılır. //neden bunu yaptık? Tüm ürünleri getirmek için.
+                return values.ToList();
             }
         }
     }

@@ -26,21 +26,21 @@ namespace RealEstate_Dapper_Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateEmployee(CreateEmployeeDto createEmployeeDto)
         {
-            _employeeRepository.CreateEmployee(createEmployeeDto);
+             await _employeeRepository.CreateEmployee(createEmployeeDto);
             return Ok("Personel Başarılı Bir Şekilde Eklendi");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployee(int id)
         {
-           _employeeRepository.DeleteEmployee(id);
+            await _employeeRepository.DeleteEmployee(id);
             return Ok("Personel Başarılı Bir Şekilde Silindi");
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateEmployee(UpdateEmployeeDto updateEmployeeDto)
         {
-            _employeeRepository.UpdateEmployee(updateEmployeeDto);
+            await _employeeRepository.UpdateEmployee(updateEmployeeDto);
             return Ok("Personel Başarıyla Güncellendi");
         }
 

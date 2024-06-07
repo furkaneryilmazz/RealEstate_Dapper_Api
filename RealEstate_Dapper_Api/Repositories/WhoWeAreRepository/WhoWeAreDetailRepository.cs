@@ -12,7 +12,7 @@ namespace RealEstate_Dapper_Api.Repositories.WhoWeAreRepository
         {
             _context = context;
         }
-        public async void CreateWhoWeAreDetail(CreateWhoWeAreDetailDto createWhoWeAreDetailDto)
+        public async Task CreateWhoWeAreDetail(CreateWhoWeAreDetailDto createWhoWeAreDetailDto)
         {
             string query = "INSERT INTO WhoWeAreDetail (Tittle,Subtitle,Description1,Description2) VALUES (@tittle,@subtitle,@description1,@description2)";
             var parameters = new DynamicParameters(); //burda ne yaptık? DynamicParameters nesnesi oluşturduk. //neden bunu yaptık? parametre eklemek için.
@@ -26,7 +26,7 @@ namespace RealEstate_Dapper_Api.Repositories.WhoWeAreRepository
             }
         }
 
-        public async void DeleteWhoWeAreDetail(int id)
+        public async Task DeleteWhoWeAreDetail(int id)
         {
             string query = "DELETE FROM WhoWeAreDetail Where WhoWeAreDetailID=@whoWeAreDetailID";
             var parameters = new DynamicParameters(); //burda ne yaptık? DynamicParameters nesnesi oluşturduk. //neden bunu yaptık? parametre eklemek için.
@@ -59,7 +59,7 @@ namespace RealEstate_Dapper_Api.Repositories.WhoWeAreRepository
             }
         }
 
-        public async void UpdateWhoWeAreDetail(UpdateWhoWeAreDetailDto updateWhoWeAreDetailDto)
+        public async Task UpdateWhoWeAreDetail(UpdateWhoWeAreDetailDto updateWhoWeAreDetailDto)
         {
             string query = "UPDATE WhoWeAreDetail SET Tittle=@tittle, Subtitle=@subtitle, Description1=@description1, Description2=@description2 where WhoWeAreDetailID=@whoWeAreDetailID";
             var parameters = new DynamicParameters();

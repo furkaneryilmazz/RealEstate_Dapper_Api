@@ -1,10 +1,11 @@
-﻿
+﻿@model List<ResultCategoryDto>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_DefaultLayout.cshtml";
 }
 
-@await Component.InvokeAsync("_DefaultFeatureComponentPartial");
+@await Html.PartialAsync("~/Views/Default/PartialSearch.cshtml")
+@* @await Component.InvokeAsync("_DefaultFeatureComponentPartial"); *@
 @await Component.InvokeAsync("_DefaultHomePageProductList");
 @await Component.InvokeAsync("_DefaultWhoWeAreComponentPartial");
 @await Component.InvokeAsync("_DefaultBottomGridComponentPartial");
@@ -12,5 +13,5 @@
 @await Component.InvokeAsync("_DefaultOurTestimonialComponentPartial");
 @await Component.InvokeAsync("_DefaultSubFeatureComponentPartial");
 @await Component.InvokeAsync("_DefaultDiscountOfDayComponent");
-@await Component.InvokeAsync("_DefaultBrandComponentPartial");
+@* @await Component.InvokeAsync("_DefaultBrandComponentPartial"); *@
 

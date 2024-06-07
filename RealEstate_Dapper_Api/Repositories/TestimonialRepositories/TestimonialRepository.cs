@@ -11,12 +11,12 @@ namespace RealEstate_Dapper_Api.Repositories.TestimonialRepositories
         {
             _context = context;
         }
-        public void CreateTestimonial(CreateTestimonialDto createTestimonialDto)
+        public Task CreateTestimonial(CreateTestimonialDto createTestimonialDto)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteTestimonial(int id)
+        public Task DeleteTestimonial(int id)
         {
             throw new NotImplementedException();
         }
@@ -36,7 +36,7 @@ namespace RealEstate_Dapper_Api.Repositories.TestimonialRepositories
             throw new NotImplementedException();
         }
 
-        public void UpdateTestimonial(UpdateTestimonialDto updateTestimonialDto)
+        public Task UpdateTestimonial(UpdateTestimonialDto updateTestimonialDto)
         {
             throw new NotImplementedException();
         }
